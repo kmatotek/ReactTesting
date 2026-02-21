@@ -1,19 +1,26 @@
-import ListGroup from "./components/ListGroup";
+import { useState } from "react";
+import Alert from "./components/Alert";
+import Button from "./components/Button";
 
 function App() {
-  let items = ["New York", "San Francisco", "Paris", "Tokyo", "London"];
-
-  const handleSelectItem = (item: string) => {
-    console.log(item);
-  };
-
+  const [alertVisible, setAlertVisibility] = useState(false);
   return (
     <div>
-      <ListGroup
-        items={items}
-        heading="cities"
-        onSelectItem={handleSelectItem}
-      />
+      {alertVisible && (
+        <Alert
+          children="hi"
+          onClose={() => {
+            setAlertVisibility(false);
+          }}
+        ></Alert>
+      )}
+      <Button
+        color="primary"
+        children="hello"
+        onClick={() => {
+          setAlertVisibility(true);
+        }}
+      ></Button>
     </div>
   );
 }
