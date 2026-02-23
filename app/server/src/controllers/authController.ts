@@ -16,6 +16,16 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 }
 
 export const login = async (req: Request, res: Response): Promise<void> => {
-  // your login logic here
-  res.status(200).json({ message: 'logged in' });
+    const { email, password } = req.body;
+
+    const user = await prisma.user.findUnique({
+        where: {email}
+    });
+
+    if(!user){
+        res.status(404).json({ message: 'User not found!'})
+        return;
+    }
+
+    res.status(200).json(user)
 };
