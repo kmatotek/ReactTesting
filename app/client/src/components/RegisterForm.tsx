@@ -3,7 +3,7 @@ import api from "../api/axios";
 import Alert from "./Alert";
 import axios from "axios";
 
-export default function LoginForm() {
+export default function RegisterForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [alertType, setAlertType] = useState<"success" | "danger" | null>(null);
@@ -12,16 +12,17 @@ export default function LoginForm() {
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      const response = await api.post("/auth/login", { email, password });
+      const response = await api.post("/auth/register", { email, password });
       setAlertType("success");
-      setAlertMessage("Login Successful!");
+      setAlertMessage("register Successful!");
     } catch (error) {
       if (axios.isAxiosError(error)) {
+        // this reads the message your backend sends back
         setAlertMessage(
           error.response?.data?.message || "Something went wrong",
         );
       } else {
-        setAlertMessage("Something went wrong");
+        setAlertMessage("something went wronog");
       }
       setAlertType("danger");
     }
@@ -45,7 +46,7 @@ export default function LoginForm() {
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
       />
-      <button type="submit">Login</button>
+      <button type="submit">Register</button>
     </form>
   );
 }
